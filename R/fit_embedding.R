@@ -1,8 +1,9 @@
 #' Fit a Brownian Motion embedding model
 #'
-#' Loads the pre-compiled `embedding_phylo_bm` Stan model and runs MCMC
-#' sampling. The returned `CmdStanMCMC` object carries `ancemb_data` and
-#' `ancemb_family` attributes for use with `extract_ancestral()`.
+#' Loads the `embedding_phylo_bm` Stan model (compiling it on first use if
+#' necessary) and runs MCMC sampling. The returned `CmdStanMCMC` object
+#' carries `ancemb_data` and `ancemb_family` attributes for use with
+#' `extract_ancestral()`.
 #'
 #' @param data A named list produced by `prepare_embedding_data()`.
 #' @param chains Number of MCMC chains (default `4`).
@@ -40,8 +41,8 @@ fit_embedding_bm <- function(data, chains = 4, iter_warmup = 1000,
 
 #' Fit an Ornstein-Uhlenbeck embedding model
 #'
-#' Loads the pre-compiled `embedding_phylo_ou` Stan model and runs MCMC
-#' sampling.
+#' Loads the `embedding_phylo_ou` Stan model (compiling it on first use if
+#' necessary) and runs MCMC sampling.
 #'
 #' @inheritParams fit_embedding_bm
 #' @return A `CmdStanMCMC` fit object.
@@ -112,7 +113,7 @@ fit_embedding_ou <- function(data, chains = 4, iter_warmup = 1000,
   model <- instantiate::stan_package_model(
     name = model_name,
     package = "ancemb",
-    compile = FALSE
+    compile = TRUE
   )
 
   fit <- model$sample(

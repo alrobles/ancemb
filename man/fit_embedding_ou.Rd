@@ -27,8 +27,8 @@ fit_embedding_ou(
 A `CmdStanMCMC` fit object.
 }
 \description{
-Loads the pre-compiled `embedding_phylo_ou` Stan model and runs MCMC
-sampling.
+Loads the `embedding_phylo_ou` Stan model (compiling it on first use if
+necessary) and runs MCMC sampling.
 }
 \examples{
 \donttest{

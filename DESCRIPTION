@@ -1,0 +1,45 @@
+Package: ancemb
+Type: Package
+Title: Bayesian Ancestral Reconstruction of Protein Embeddings
+Version: 0.0.1
+Authors@R: c(
+    person("Angel Luis", "Robles Fernandez", , "a.l.robles.fernandez@gmail.com", role = c("aut", "cre"),
+           comment = c(ORCID = "0000-0002-4674-4270"))
+  )
+Description: Provides Bayesian phylogenetic reconstruction of ancestral protein
+    embeddings using continuous-trait evolutionary models. Brownian Motion and
+    Ornstein-Uhlenbeck processes are implemented as pre-compiled Stan models,
+    and the package exports a small set of functions to prepare data, fit
+    models, extract ancestral states, and compare model families. The
+    accompanying test suite verifies the Stan posterior summaries against
+    both pure-R reference implementations and phytools::fastAnc().
+License: GPL (>= 3)
+URL: https://alrobles.github.io/ancemb/
+BugReports: https://github.com/alrobles/ancemb-devel/issues
+Encoding: UTF-8
+Depends:
+    R (>= 4.1)
+Imports:
+    ape,
+    callr,
+    checkmate,
+    fs,
+    instantiate,
+    methods,
+    posterior,
+    stats,
+    utils
+Suggests:
+    cmdstanr,
+    knitr,
+    phytools,
+    rmarkdown,
+    testthat (>= 3.0.0)
+VignetteBuilder: knitr
+SystemRequirements:
+    GNU make,
+    CmdStan (https://mc-stan.org/users/interfaces/cmdstan)
+Additional_repositories:
+    https://mc-stan.org/r-packages/
+Config/testthat/edition: 3
+Config/roxygen2/version: 8.1.0

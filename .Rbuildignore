@@ -1,0 +1,17 @@
+^.*\.Rproj$
+^\.Rproj\.user$
+^LICENSE\.md$
+^data-raw$
+^\.gitignore$
+^\.github$
+^README\.Rmd$
+^CRAN-SUBMISSION$
+^cran-comments\.md$
+^README\.html$
+^_pkgdown\.yml$
+^docs$
+^pkgdown$
+^vignettes/.*_cache($|/)
+^vignettes/.*_files($|/)
+^README\.knit\.md$
+^README\.utf8\.md$

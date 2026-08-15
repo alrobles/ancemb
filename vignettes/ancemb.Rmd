@@ -1,0 +1,72 @@
+---
+title: "ancemb: Bayesian Ancestral Protein Embeddings"
+output: rmarkdown::html_vignette
+vignette: >
+  %\VignetteIndexEntry{ancemb: Bayesian Ancestral Protein Embeddings}
+  %\VignetteEngine{knitr::rmarkdown}
+  %\VignetteEncoding{UTF-8}
+---
+
+```{r, include = FALSE}
+knitr::opts_chunk$set(
+  collapse = TRUE,
+  comment = "#>"
+)
+```
+
+`ancemb` provides a small set of functions to reconstruct ancestral protein
+embeddings from extant (tip) embeddings and a phylogenetic tree. The package
+uses pre-compiled Stan models for Brownian Motion (BM) and
+Ornstein-Uhlenbeck (OU) evolution of continuous embedding dimensions.
+
+## Setup
+
+```{r setup}
+library(ancemb)
+set.seed(42)
+```
+
+## Simulated data
+
+We create a small tree and a synthetic set of tip embeddings:
+
+```{r data, eval = requireNamespace("instantiate", quietly = TRUE) && instantiate::stan_cmdstan_exists()}
+tree <- ape::rtree(8)
+tree$edge.length <- tree$edge.length / max(ape::node.depth.edgelength(tree))
+
+z_obs <- matrix(stats::rnorm(8 * 4, sd = 0.5), nrow = 8)
+rownames(z_obs) <- tree$tip.label
+```
+
+## Fitting the BM model
+
+```{r fit, eval = requireNamespace("instantiate", quietly = TRUE) && instantiate::stan_cmdstan_exists()}
+stan_data <- prepare_embedding_data(tree, z_obs, obs_sigma = 0.1)
+fit <- fit_embedding_bm(stan_data, chains = 1, iter_warmup = 100,
+                        iter_sampling = 100, refresh = 0)
+```
+
+## Extracting ancestral states
+
+`extract_ancestral()` computes posterior summaries for all internal nodes:
+
+```{r extract, eval = requireNamespace("instantiate", quietly = TRUE) && instantiate::stan_cmdstan_exists()}
+anc <- extract_ancestral(fit, data = stan_data, tree = tree)
+str(anc)
+```
+
+## Comparing model families
+
+```{r compare, eval = requireNamespace("instantiate", quietly = TRUE) && instantiate::stan_cmdstan_exists()}
+cmp <- run_bayesian_comparison(stan_data, tree, chains = 1, iter_warmup = 100,
+                               iter_sampling = 100, refresh = 0)
+cmp$root_comparison
+```
+
+## Pure-R reference
+
+Every exported function is paired with a pure-R reference implementation
+(`*_r`) that follows the math line-by-line. For example,
+`reconstruct_ancestral_bm_r()` matches `phytools::fastAnc()` for noise-free
+BM data, which is used in the package test suite as the cross-language QA
+benchmark.

@@ -27,7 +27,20 @@ if (!file.exists(bin)) {
 bin_stan <- file.path(bin, "stan")
 fs::dir_copy(path = "stan", new_path = bin_stan)
 
-if (instantiate::stan_cmdstan_exists()) {
+is_r_cmd_check <- function() {
+  r_package_dir <- if (exists("R_PACKAGE_DIR", inherits = TRUE)) {
+    get("R_PACKAGE_DIR", inherits = TRUE)
+  } else {
+    Sys.getenv("R_PACKAGE_DIR", "")
+  }
+  in_check_dir <- grepl("\\.Rcheck", r_package_dir, fixed = FALSE)
+  !is.na(Sys.getenv("_R_CHECK_PACKAGE_NAME_", NA)) ||
+    tolower(Sys.getenv("_R_CHECK_LICENSE_")) %in% c("true", "1") ||
+    "CheckExEnv" %in% search() ||
+    in_check_dir
+}
+
+if (instantiate::stan_cmdstan_exists() && !is_r_cmd_check()) {
   callr::r(
     func = function(bin_stan) {
       instantiate::stan_package_compile(
@@ -37,6 +50,11 @@ if (instantiate::stan_cmdstan_exists()) {
     args = list(bin_stan = bin_stan),
     show = TRUE,
     stderr = "2>&1"
+  )
+} else if (is_r_cmd_check()) {
+  message(
+    "Skipping Stan pre-compilation under R CMD check; ",
+    "models will compile on first use."
   )
 } else {
   warning(

@@ -15,3 +15,6 @@
 ^vignettes/.*_files($|/)
 ^README\.knit\.md$
 ^README\.utf8\.md$
+^.*\.tar\.gz$
+^\.Rcheck$
+^ancemb\.Rcheck$

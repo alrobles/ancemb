@@ -10,6 +10,8 @@ inst/stan/**/*.EXE
 *.dll
 *.o
 *.so
+*.tar.gz
+.Rcheck/
 bin/
 docs/
 README.html

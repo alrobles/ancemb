@@ -27,9 +27,10 @@ fit_embedding_bm(
 A `CmdStanMCMC` fit object.
 }
 \description{
-Loads the pre-compiled `embedding_phylo_bm` Stan model and runs MCMC
-sampling. The returned `CmdStanMCMC` object carries `ancemb_data` and
-`ancemb_family` attributes for use with `extract_ancestral()`.
+Loads the `embedding_phylo_bm` Stan model (compiling it on first use if
+necessary) and runs MCMC sampling. The returned `CmdStanMCMC` object
+carries `ancemb_data` and `ancemb_family` attributes for use with
+`extract_ancestral()`.
 }
 \examples{
 \donttest{

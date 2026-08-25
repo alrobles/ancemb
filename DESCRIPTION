@@ -6,6 +6,8 @@ Authors@R: c(
     person("Angel Luis", "Robles Fernandez", , "a.l.robles.fernandez@gmail.com", role = c("aut", "cre"),
            comment = c(ORCID = "0000-0002-4674-4270"))
   )
+Author: Angel Luis Robles Fernandez [aut, cre]
+Maintainer: Angel Luis Robles Fernandez <a.l.robles.fernandez@gmail.com>
 Description: Provides Bayesian phylogenetic reconstruction of ancestral protein
     embeddings using continuous-trait evolutionary models. Brownian Motion and
     Ornstein-Uhlenbeck processes are implemented as pre-compiled Stan models,
@@ -30,6 +32,8 @@ Suggests:
     cmdstanr,
     knitr,
     phytools,
+    reticulate,
+    RcppCNPy,
     rmarkdown,
     testthat (>= 3.0.0)
 VignetteBuilder: knitr

@@ -41,6 +41,7 @@ run_bayesian_comparison <- function(data, tree = NULL,
   if (is.null(tree)) {
     stop("'tree' is required (or set as a 'tree' attribute on data).")
   }
+  .assert_branch_lengths(tree)
   checkmate::assert_int(chains, lower = 1L)
   checkmate::assert_int(iter_warmup, lower = 1L)
   checkmate::assert_int(iter_sampling, lower = 1L)

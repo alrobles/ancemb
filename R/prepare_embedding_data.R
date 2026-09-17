@@ -6,7 +6,8 @@
 #' downstream functions (e.g. `extract_ancestral()`) can reconstruct internal
 #' node states without needing the tree to be passed again.
 #'
-#' @param tree A `phylo` object. Tip labels must be present.
+#' @param tree A `phylo` object. Tip labels and branch lengths must be
+#'   present.
 #' @param z_obs Numeric matrix (`S x D`) of observed tip embeddings. Rownames
 #'   must match `tree$tip.label` exactly.
 #' @param obs_sigma Non-negative observation noise sd (default `0.1`).
@@ -36,6 +37,7 @@ prepare_embedding_data <- function(tree, z_obs,
                                    rate_scale = 1,
                                    alpha_scale = 1) {
   checkmate::assert_class(tree, "phylo")
+  .assert_branch_lengths(tree)
   checkmate::assert_matrix(z_obs, mode = "numeric", any.missing = FALSE,
                            min.rows = 2L, min.cols = 1L)
   checkmate::assert_numeric(obs_sigma, lower = 0, finite = TRUE, len = 1L)

@@ -1,9 +1,9 @@
 #' Reference implementations for ancestral embedding reconstruction
 #'
-#' Internal pure-R functions that reproduce the Brownian Motion (BM) and
-#' Ornstein-Uhlenbeck (OU) phylogenetic embedding math line-by-line. They
-#' are not exported and have no input validation -- callers are responsible
-#' for providing correctly formatted objects.
+#' Pure-R functions that reproduce the Brownian Motion (BM) and
+#' Ornstein-Uhlenbeck (OU) phylogenetic embedding math line-by-line. Input
+#' validation is minimal -- callers are responsible for providing correctly
+#' formatted objects.
 #'
 #' @keywords internal
 #' @name reference
@@ -19,6 +19,7 @@ NULL
 #'   (`n_nodes` x `D`), `all_values` (`n_total` x `D`) and `root_value`.
 #' @export
 simulate_bm_embedding_r <- function(tree, z_root, rates) {
+  .assert_branch_lengths(tree)
   n_tips  <- length(tree$tip.label)
   n_nodes <- tree$Nnode
   n_total <- n_tips + n_nodes
@@ -66,6 +67,7 @@ simulate_bm_embedding_r <- function(tree, z_root, rates) {
 #' @export
 simulate_ou_embedding_r <- function(tree, z_root, theta = z_root,
                                     alpha, sigma2, dt = 0.01) {
+  .assert_branch_lengths(tree)
   n_tips  <- length(tree$tip.label)
   n_nodes <- tree$Nnode
   n_total <- n_tips + n_nodes
@@ -209,6 +211,7 @@ ou_covariance_r <- function(tree, alpha, sigma2) {
 reconstruct_ancestral_bm_r <- function(tree, z_obs,
                                        rate = NULL, z_anc = NULL,
                                        obs_sigma = 0) {
+  .assert_branch_lengths(tree)
   if (!is.null(rownames(z_obs))) {
     z_obs <- z_obs[tree$tip.label, , drop = FALSE]
   }
@@ -288,6 +291,7 @@ reconstruct_ancestral_bm_r <- function(tree, z_obs,
 reconstruct_ancestral_ou_r <- function(tree, z_obs,
                                      sigma2 = NULL, alpha = NULL,
                                      z_anc = NULL, obs_sigma = 0) {
+  .assert_branch_lengths(tree)
   if (!is.null(rownames(z_obs))) {
     z_obs <- z_obs[tree$tip.label, , drop = FALSE]
   }
@@ -354,6 +358,7 @@ reconstruct_ancestral_ou_r <- function(tree, z_obs,
 #' @return Numeric matrix (`n_nodes x D`). Row 1 is the root estimate.
 #' @export
 reconstruct_ancestral_ml_r <- function(tree, tip_embeddings) {
+  .assert_branch_lengths(tree)
   if (!requireNamespace("phytools", quietly = TRUE)) {
     stop("Package 'phytools' is required for 'reconstruct_ancestral_ml_r()' ",
          "but is not installed.", call. = FALSE)

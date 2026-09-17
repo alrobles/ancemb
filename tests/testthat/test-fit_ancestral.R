@@ -88,6 +88,27 @@ test_that("prepare_embedding_data validates inputs", {
   expect_error(prepare_embedding_data(tree, Z, obs_sigma = -1))
 })
 
+test_that("functions reject trees without branch lengths", {
+  tree <- make_test_tree(8)
+  Z <- make_bm_embeddings(tree, d = 4)
+  tree$edge.length <- NULL
+
+  expect_error(prepare_embedding_data(tree, Z), "branch lengths")
+  expect_error(reconstruct_ancestral_ml_r(tree, Z), "branch lengths")
+  expect_error(reconstruct_ancestral_bm_r(tree, Z), "branch lengths")
+  expect_error(reconstruct_ancestral_ou_r(tree, Z), "branch lengths")
+  expect_error(
+    simulate_bm_embedding_r(tree, z_root = stats::rnorm(4),
+                            rates = rep(1, 4)),
+    "branch lengths"
+  )
+  expect_error(
+    simulate_ou_embedding_r(tree, z_root = stats::rnorm(4),
+                            alpha = rep(1, 4), sigma2 = rep(1, 4)),
+    "branch lengths"
+  )
+})
+
 test_that("Stan BM fit and ancestral extraction agree with fastAnc", {
   skip_if_not(instantiate::stan_cmdstan_exists(), "CmdStan not available")
 

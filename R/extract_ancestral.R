@@ -60,6 +60,7 @@ extract_ancestral <- function(fit, nodes = NULL, data = NULL, tree = NULL,
   if (is.null(tree)) {
     stop("'tree' is required (or set as a 'tree' attribute on data/fit).")
   }
+  .assert_branch_lengths(tree)
 
   family <- attr(fit, "ancemb_family")
   if (is.null(family)) {

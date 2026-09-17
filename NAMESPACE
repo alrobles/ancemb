@@ -7,7 +7,12 @@ export(fit_embedding_ou)
 export(load_embedding_array)
 export(prepare_embedding_data)
 export(python_backend_status)
+export(reconstruct_ancestral_bm_r)
+export(reconstruct_ancestral_ml_r)
+export(reconstruct_ancestral_ou_r)
 export(run_bayesian_comparison)
+export(simulate_bm_embedding_r)
+export(simulate_ou_embedding_r)
 importFrom(ape,
   dist.nodes,
   node.depth.edgelength,

@@ -17,7 +17,7 @@ NULL
 #'
 #' @return List with `tip_values` (`n_tips` x `D`), `node_values`
 #'   (`n_nodes` x `D`), `all_values` (`n_total` x `D`) and `root_value`.
-#' @keywords internal
+#' @export
 simulate_bm_embedding_r <- function(tree, z_root, rates) {
   n_tips  <- length(tree$tip.label)
   n_nodes <- tree$Nnode
@@ -63,7 +63,7 @@ simulate_bm_embedding_r <- function(tree, z_root, rates) {
 #' @param dt Euler-Maruyama step size as a fraction of branch length.
 #'
 #' @return Same structure as `simulate_bm_embedding_r`.
-#' @keywords internal
+#' @export
 simulate_ou_embedding_r <- function(tree, z_root, theta = z_root,
                                     alpha, sigma2, dt = 0.01) {
   n_tips  <- length(tree$tip.label)
@@ -205,7 +205,7 @@ ou_covariance_r <- function(tree, alpha, sigma2) {
 #' @return List with `z_anc` (length `D`), `rate` (length `D`), and
 #'   `node_estimates` (`n_nodes x D`). Row `u` of `node_estimates` corresponds
 #'   to ape node number `n_tips + u`.
-#' @keywords internal
+#' @export
 reconstruct_ancestral_bm_r <- function(tree, z_obs,
                                        rate = NULL, z_anc = NULL,
                                        obs_sigma = 0) {
@@ -284,7 +284,7 @@ reconstruct_ancestral_bm_r <- function(tree, z_obs,
 #' @param obs_sigma Observation noise sd.
 #'
 #' @return List with `z_anc`, `sigma2`, `alpha`, and `node_estimates`.
-#' @keywords internal
+#' @export
 reconstruct_ancestral_ou_r <- function(tree, z_obs,
                                      sigma2 = NULL, alpha = NULL,
                                      z_anc = NULL, obs_sigma = 0) {
@@ -352,7 +352,7 @@ reconstruct_ancestral_ou_r <- function(tree, z_obs,
 #' @param tree A `phylo` object.
 #' @param tip_embeddings Numeric matrix (`n_tips x D`).
 #' @return Numeric matrix (`n_nodes x D`). Row 1 is the root estimate.
-#' @keywords internal
+#' @export
 reconstruct_ancestral_ml_r <- function(tree, tip_embeddings) {
   if (!requireNamespace("phytools", quietly = TRUE)) {
     stop("Package 'phytools' is required for 'reconstruct_ancestral_ml_r()' ",

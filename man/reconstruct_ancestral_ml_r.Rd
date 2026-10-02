@@ -18,4 +18,3 @@ Numeric matrix (`n_nodes x D`). Row 1 is the root estimate.
 Convenience wrapper around `phytools::fastAnc` that returns the full
 matrix of ancestral node estimates (one column per embedding dimension).
 }
-\keyword{internal}

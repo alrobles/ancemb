@@ -20,4 +20,3 @@ List with `tip_values` (`n_tips` x `D`), `node_values`
 \description{
 Simulate BM evolution of an embedding along a phylogeny
 }
-\keyword{internal}

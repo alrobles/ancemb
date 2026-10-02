@@ -1,7 +1,7 @@
 Package: ancemb
 Type: Package
 Title: Bayesian Ancestral Reconstruction of Protein Embeddings
-Version: 0.0.1
+Version: 0.1.0
 Authors@R: c(
     person("Angel Luis", "Robles Fernandez", , "a.l.robles.fernandez@gmail.com", role = c("aut", "cre"),
            comment = c(ORCID = "0000-0002-4674-4270"))
@@ -17,7 +17,7 @@ Description: Provides Bayesian phylogenetic reconstruction of ancestral protein
     both pure-R reference implementations and phytools::fastAnc().
 License: GPL (>= 3)
 URL: https://alrobles.github.io/ancemb/
-BugReports: https://github.com/alrobles/ancemb-devel/issues
+BugReports: https://github.com/alrobles/ancemb/issues
 Encoding: UTF-8
 Depends:
     R (>= 4.1)

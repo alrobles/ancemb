@@ -25,4 +25,3 @@ Same structure as `simulate_bm_embedding_r`.
 \description{
 Uses Euler-Maruyama on each branch with step size `dt`.
 }
-\keyword{internal}

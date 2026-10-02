@@ -1,3 +1,12 @@
+# ancemb 0.1.0
+
+* First public release under `alrobles/ancemb`.
+* Optional reticulate backend adapter for NumPy/NPZ embedding arrays
+  (`configure_python_backend()`, `load_embedding_array()`).
+* Trees without branch lengths now fail fast with an explicit error.
+* Exported pure-R simulation and reconstruction references
+  (`simulate_*_embedding_r()`, `reconstruct_ancestral_*_r()`).
+
 # ancemb 0.0.1
 
 * Initial CRAN-ready package skeleton.

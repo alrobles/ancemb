@@ -31,3 +31,8 @@ The Python backend is deliberately optional. It provides data I/O and
 specialised representation methods while `ancemb` retains ownership of
 phylogenetic data, Stan inference, posterior summaries, and metrics.
 }
+\examples{
+\dontrun{
+configure_python_backend(virtualenv = "ancemb")
+}
+}

@@ -13,7 +13,8 @@ prepare_embedding_data(
 )
 }
 \arguments{
-\item{tree}{A `phylo` object. Tip labels must be present.}
+\item{tree}{A `phylo` object. Tip labels and branch lengths must be
+present.}
 
 \item{z_obs}{Numeric matrix (`S x D`) of observed tip embeddings. Rownames
 must match `tree$tip.label` exactly.}

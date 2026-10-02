@@ -35,4 +35,3 @@ Estimates the root state with the GLS estimator and then computes the
 conditional expectation of every internal node. With `obs_sigma = 0`
 the resulting node estimates match `phytools::fastAnc`.
 }
-\keyword{internal}

@@ -35,4 +35,3 @@ the conditional expectation of the internal nodes given the tip
 observations. If `z_anc` is `NULL` it is estimated by GLS using the
 provided (or default) OU parameters.
 }
-\keyword{internal}

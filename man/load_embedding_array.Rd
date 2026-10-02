@@ -17,3 +17,8 @@ A numeric matrix or array.
 \description{
 Load a NumPy array through the optional backend
 }
+\examples{
+\dontrun{
+load_embedding_array("embeddings.npy")
+}
+}

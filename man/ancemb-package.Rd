@@ -15,7 +15,7 @@ evolutionary processes.
 Useful links:
 \itemize{
   \item \url{https://alrobles.github.io/ancemb/}
-  \item Report bugs at \url{https://github.com/alrobles/ancemb-devel/issues}
+  \item Report bugs at \url{https://github.com/alrobles/ancemb/issues}
 }
 
 }

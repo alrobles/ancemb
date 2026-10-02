@@ -4,19 +4,81 @@ output: github_document
 
 # ancemb
 
-[![R-CMD-check](https://github.com/alrobles/ancemb-devel/actions/workflows/R-CMD-check.yaml/badge.svg)](https://github.com/alrobles/ancemb-devel/actions/workflows/R-CMD-check.yaml)
-[![pkgdown](https://github.com/alrobles/ancemb-devel/actions/workflows/pkgdown.yaml/badge.svg)](https://alrobles.github.io/ancemb/)
+<!-- badges: start -->
+[![R-CMD-check](https://github.com/alrobles/ancemb/actions/workflows/R-CMD-check.yaml/badge.svg)](https://github.com/alrobles/ancemb/actions/workflows/R-CMD-check.yaml)
+[![pkgdown](https://github.com/alrobles/ancemb/actions/workflows/pkgdown.yaml/badge.svg)](https://alrobles.github.io/ancemb/)
+[![License: GPL (>= 3)](https://img.shields.io/badge/license-GPL--3-blue.svg)](https://www.gnu.org/licenses/gpl-3.0)
+<!-- badges: end -->
 
-`ancemb` implements Bayesian phylogenetic reconstruction of ancestral protein
-embeddings. It treats each embedding dimension as a continuous trait evolving
-along a phylogeny under Brownian Motion (BM) or an Ornstein-Uhlenbeck (OU)
-process, and fits pre-compiled Stan models via the
+**Bayesian ancestral reconstruction of protein language-model embeddings.**
+
+`ancemb` treats the embedding produced by a protein language model (pLM)
+as a set of continuous traits evolving along a phylogeny. It reconstructs
+ancestral embeddings at internal nodes under Brownian Motion (BM) and
+Ornstein–Uhlenbeck (OU) processes, fitted with pre-compiled
+[Stan](https://mc-stan.org) models through the
 [`instantiate`](https://wlandau.github.io/instantiate/) package.
+
+## What we are doing
+
+Protein language models compress each sequence into a high-dimensional
+vector that encodes structure and function. A natural question follows:
+do those coordinates behave like phylogenetic traits — and if so, where
+does ancestral information stop being recoverable from embedding
+geometry?
+
+This package is the analysis interface of a research program that
+decomposes that question into three testable hypotheses:
+
+- **T1 — trait evolution.** Embedding dimensions carry components that
+  evolve like continuous traits on the tree (measurable as Blomberg's *K*,
+  Pagel's *λ*, predictive density on held-out clades).
+- **T2 — trait reconstruction.** Phylogenetic models (BM/OU) reconstruct
+  ancestral embeddings better than phylogeny-free baselines.
+- **T3 — invertibility.** Closeness in embedding space implies recovery of
+  the ancestral *sequence*.
+
+Keeping these separate is deliberate: a failure of T3 says nothing about
+T2 unless the same nodes, pools, and metrics are held fixed — which is
+what this package enforces.
+
+## What we intend
+
+`ancemb` aims to be the single, tested entry point for ancestral embedding
+inference: data preparation, Stan posterior fits, pure-R reference
+implementations, an optional Python (reticulate) backend for embedding
+arrays, and manifest-driven metrics that make results comparable across
+families, representations, and models. The long-term goal is a calibrated
+predictive account of embedding evolution — including an honest map of
+where it fails.
+
+## What has been achieved so far
+
+- **Validated estimator.** On Gaussian-trait simulations where the truth
+  is known by construction, the BM/OU fits recover the simulated
+  ancestors. On real protein families, Bayesian posterior means agree
+  with `phytools::fastAnc` ML reconstructions to cosine ≈ 0.99.
+- **Partial phylogenetic signal.** Across a curated multi-family database
+  (trees + alignments + deposited and experimentally resurrected
+  ancestors), ~10.7% of embedding dimensions show significant Blomberg's
+  *K* after multiple-testing correction; ancestral reconstruction beats
+  phylogeny-free baselines in shallow families and degrades with depth.
+- **An honest limit.** Sequence-level recovery by ranking candidates in
+  embedding space does *not* beat classical MAP reconstruction — in a
+  340-node benchmark, MAP wins as soon as real headroom exists
+  (P(d > 0) ≈ 0.19). A linear probe recovers ancestral sequence
+  information above all phylogeny-free baselines, so the information is
+  present in the embeddings; the failing component is the
+  cosine-ranking/decoder step. Measuring that boundary — not claiming
+  superiority — is the contribution.
+
+A manuscript describing the full benchmark is in preparation.
 
 ## Installation
 
-`ancemb` requires a working [CmdStan](https://mc-stan.org/users/interfaces/cmdstan)
-installation. Install CmdStan from R with:
+`ancemb` requires a working
+[CmdStan](https://mc-stan.org/users/interfaces/cmdstan) installation.
+Install CmdStan from R with:
 
 ```r
 install.packages("cmdstanr", repos = c("https://mc-stan.org/r-packages/", getOption("repos")))
@@ -27,7 +89,7 @@ Then install `ancemb` from GitHub:
 
 ```r
 # install.packages("remotes")
-remotes::install_github("alrobles/ancemb-devel")
+remotes::install_github("alrobles/ancemb")
 ```
 
 ## Quick start
@@ -75,14 +137,38 @@ cat("ML root (dim 1):", ml_root, "\n")
 cat("Bayes root mean (dim 1):", anc$mean[root_node, "dim1"], "\n")
 ```
 
-## Reference implementation
+## Reference implementations
 
-The package follows the SSDLC software-factory pattern: every exported Stan
-wrapper is paired with a pure-R reference function (`*_r`) that reproduces the
-same math line-by-line. For example, `reconstruct_ancestral_bm_r()` gives the
-same conditional expectations as `phytools::fastAnc()` for noise-free data.
+Every exported Stan wrapper is paired with a pure-R reference function
+(`*_r`) that reproduces the same mathematics line by line:
+`simulate_bm_embedding_r()`, `simulate_ou_embedding_r()`,
+`reconstruct_ancestral_bm_r()`, `reconstruct_ancestral_ou_r()` and
+`reconstruct_ancestral_ml_r()`. The test suite cross-checks Stan
+posterior means against both these references and `phytools::fastAnc()`.
+
+## Python backend
+
+An optional reticulate adapter (`configure_python_backend()`,
+`python_backend_status()`, `load_embedding_array()`) reads NumPy `NPZ`
+embedding archives directly, so the R pipeline can consume pLM outputs
+without intermediate conversions.
+
+## Roadmap
+
+- Representation geometry: whitening, PCA, probabilistic PCA and
+  invertible autoencoders as pre-defined analysis arms.
+- Held-out-clade (LOCO) predictive benchmark against sequence-only
+  controls, with pre-registered admission gates.
+- Decoders beyond cosine ranking over fixed candidate pools.
+
+## Citation
+
+`ancemb` is research software under active development. If you use it,
+please cite the GitHub repository; a manuscript citation will be added
+when available.
 
 ## Code of Conduct
 
-Please note that this project is released with a [Contributor Code of Conduct](https://contributor-covenant.org/version/2/1/code_of_conduct.html).
+Please note that this project is released with a [Contributor Code of
+Conduct](https://contributor-covenant.org/version/2/1/code_of_conduct.html).
 By participating in this project you agree to abide by its terms.

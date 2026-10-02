@@ -8,7 +8,7 @@
 ## Citation
 
 Source:
-[`DESCRIPTION`](https://github.com/alrobles/ancemb/blob/main/DESCRIPTION)
+[`DESCRIPTION`](https://github.com/alrobles/ancemb/blob/v0.1.0/DESCRIPTION)
 
 Robles Fernandez A (2026). *ancemb: Bayesian Ancestral Reconstruction of
 Protein Embeddings*. R package version 0.1.0,

@@ -78,7 +78,7 @@ if (instantiate::stan_cmdstan_exists()) {
 #> 
 #> Chain 1 Iteration:   1 / 400 [  0%]  (Warmup) 
 #> Chain 1 Informational Message: The current Metropolis proposal is about to be rejected because of the following issue:
-#> Chain 1 Exception: cholesky_decompose: A is not symmetric. A[1,2] = -nan, but A[2,1] = -nan (in '/tmp/Rtmp49Uj6K/model-1e511c7e7ff4.stan', line 62, column 6 to column 58)
+#> Chain 1 Exception: cholesky_decompose: A is not symmetric. A[1,2] = -nan, but A[2,1] = -nan (in '/tmp/Rtmp1wWU0u/model-1dc01388f553.stan', line 62, column 6 to column 58)
 #> Chain 1 If this warning occurs sporadically, such as for highly constrained variable types like covariance matrices, then the sampler is fine,
 #> Chain 1 but if this warning occurs often then your model may be either severely ill-conditioned or misspecified.
 #> Chain 1 
@@ -87,7 +87,7 @@ if (instantiate::stan_cmdstan_exists()) {
 #> Chain 1 Iteration: 201 / 400 [ 50%]  (Sampling) 
 #> Chain 1 Iteration: 300 / 400 [ 75%]  (Sampling) 
 #> Chain 1 Iteration: 400 / 400 [100%]  (Sampling) 
-#> Chain 1 finished in 1.9 seconds.
+#> Chain 1 finished in 1.5 seconds.
 #> List of 4
 #>  $ bm_root: Named num [1:4] 0.888 -0.148 0.412 0.275
 #>   ..- attr(*, "names")= chr [1:4] "dim1" "dim2" "dim3" "dim4"

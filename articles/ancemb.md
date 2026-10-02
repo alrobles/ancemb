@@ -99,7 +99,7 @@ cmp <- run_bayesian_comparison(stan_data, tree, chains = 1, iter_warmup = 100,
 #> Chain 1            adapt_window = 75 
 #> Chain 1            term_buffer = 10
 #> Chain 1 Informational Message: The current Metropolis proposal is about to be rejected because of the following issue:
-#> Chain 1 Exception: normal_lpdf: Location parameter[1] is inf, but must be finite! (in '/tmp/Rtmp49Uj6K/model-1e51213b88a8.stan', line 56, column 4 to column 39)
+#> Chain 1 Exception: normal_lpdf: Location parameter[1] is inf, but must be finite! (in '/tmp/Rtmp1wWU0u/model-1dc07a94686b.stan', line 56, column 4 to column 39)
 #> Chain 1 If this warning occurs sporadically, such as for highly constrained variable types like covariance matrices, then the sampler is fine,
 #> Chain 1 but if this warning occurs often then your model may be either severely ill-conditioned or misspecified.
 #> Chain 1
@@ -114,11 +114,11 @@ cmp <- run_bayesian_comparison(stan_data, tree, chains = 1, iter_warmup = 100,
 #> Chain 1            adapt_window = 75 
 #> Chain 1            term_buffer = 10
 #> Chain 1 Informational Message: The current Metropolis proposal is about to be rejected because of the following issue:
-#> Chain 1 Exception: cholesky_decompose: Matrix m is not positive definite (in '/tmp/Rtmp49Uj6K/model-1e511c7e7ff4.stan', line 62, column 6 to column 58)
+#> Chain 1 Exception: cholesky_decompose: Matrix m is not positive definite (in '/tmp/Rtmp1wWU0u/model-1dc01388f553.stan', line 62, column 6 to column 58)
 #> Chain 1 If this warning occurs sporadically, such as for highly constrained variable types like covariance matrices, then the sampler is fine,
 #> Chain 1 but if this warning occurs often then your model may be either severely ill-conditioned or misspecified.
 #> Chain 1
-#> Chain 1 finished in 0.9 seconds.
+#> Chain 1 finished in 0.7 seconds.
 cmp$root_comparison
 #> $bm_root
 #>        dim1        dim2        dim3        dim4 

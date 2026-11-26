@@ -82,7 +82,7 @@ A manuscript describing the full benchmark is in preparation.
 Install CmdStan from R with:
 
 ``` r
-install.packages("cmdstanr", repos = c("https://mc-stan.org/r-packages/", getOption("repos")))
+install.packages("cmdstanr", repos = c("https://stan-dev.r-universe.dev/", getOption("repos")))
 cmdstanr::install_cmdstan()
 ```
 
